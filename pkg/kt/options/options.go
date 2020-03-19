@@ -27,7 +27,12 @@ type exchangeOptions struct {
 }
 
 type meshOptions struct {
+	// local port to expose
 	Expose string
+	// service mesh provider
+	Provider string
+	// enable auto inject
+	AutoInject bool
 }
 
 type runtimeOptions struct {

@@ -108,9 +108,9 @@ func CleanupWorkspace(cli kt.CliInterface, options *options.DaemonOptions) {
 func checkConnectRunning(pidFile string) {
 	daemonRunning := util.IsDaemonRunning(pidFile)
 	if !daemonRunning {
-		log.Info().Msgf("'KT Connect' not running, you can only access local app from cluster")
+		log.Info().Msgf("'connect' not running, you can only access local app from cluster")
 	} else {
-		log.Info().Msgf("'KT Connect' is running, you can access local app from cluster and localhost")
+		log.Info().Msgf("'connect' is running, you can access local app from cluster and localhost")
 	}
 }
 

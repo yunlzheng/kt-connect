@@ -3,7 +3,7 @@ package cluster
 import (
 	"github.com/alibaba/kt-connect/pkg/kt/util"
 	appV1 "k8s.io/api/apps/v1"
-	coreV1 "k8s.io/api/core/v1"
+	v1 "k8s.io/api/core/v1"
 	"k8s.io/client-go/kubernetes"
 )
 
@@ -20,6 +20,7 @@ func Create(kubeConfig string) (kubernetes KubernetesInterface, err error) {
 
 // KubernetesInterface kubernetes interface
 type KubernetesInterface interface {
+	GetNamespace(name string) (*v1.Namespace, error)
 	RemoveDeployment(name, namespace string) (err error)
 	RemoveConfigMap(name, namespace string) (err error)
 	RemoveService(name, namespace string) (err error)
@@ -29,7 +30,7 @@ type KubernetesInterface interface {
 	ServiceHosts(namespace string) (hosts map[string]string)
 	ClusterCrids(podCIDR string) (cidrs []string, err error)
 	CreateShadow(name, namespace, image string, labels map[string]string, debug bool) (podIP, podName, sshcm string, credential *util.SSHCredential, err error)
-	CreateService(name, namespace string, port int, labels map[string]string) (*coreV1.Service, error)
+	CreateService(name, namespace string, port int, labels map[string]string) (*v1.Service, error)
 }
 
 // Kubernetes implements KubernetesInterface

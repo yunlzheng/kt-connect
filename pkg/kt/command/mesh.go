@@ -34,6 +34,17 @@ func newMeshCommand(cli kt.CliInterface, options *options.DaemonOptions, action 
 				Usage:       "expose port [port] or [remote:local]",
 				Destination: &options.MeshOptions.Expose,
 			},
+			urfave.BoolFlag{
+				Name:        "autoInject",
+				Usage:       "auto inject local service to service mesh network",
+				Destination: &options.MeshOptions.AutoInject,
+			},
+			urfave.StringFlag{
+				Name:        "provider",
+				Usage:       "service mesh provider, default is istio",
+				Value:       "istio",
+				Destination: &options.MeshOptions.Provider,
+			},
 		},
 		Action: func(c *urfave.Context) error {
 			if options.Debug {
@@ -64,6 +75,18 @@ func (action *Action) Mesh(mesh string, cli kt.CliInterface, options *options.Da
 	kubernetes, err := cluster.Create(options.KubeConfig)
 	if err != nil {
 		return err
+	}
+
+	namespace, err := kubernetes.GetNamespace(options.Namespace)
+	if err != nil {
+		return err
+	}
+
+	namespaceLabels := namespace.GetObjectMeta().GetLabels()
+	if namespaceLabels["istio-injection"] == "enabled" {
+		log.Info().Msgf("current namespace %s istio-injection is enabled", options.Namespace)
+	} else {
+		log.Info().Msgf("current namespace %s istio-injection is disable", options.Namespace)
 	}
 
 	app, err := kubernetes.Deployment(mesh, options.Namespace)

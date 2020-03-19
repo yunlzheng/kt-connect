@@ -22,8 +22,8 @@ require (
 	github.com/thinkerou/favicon v0.1.0 // indirect
 	github.com/urfave/cli v0.0.0-20190203184040-693af58b4d51
 	golang.org/x/crypto v0.0.0-20190923035154-9ee001bba392
-	istio.io/api v0.0.0-20200221025927-228308df3f1b
-	istio.io/client-go v0.0.0-20200221055756-736d3076b458
+	istio.io/api v0.0.0-20200318153452-87dde8cda945
+	istio.io/client-go v0.0.0-20200318154251-894b939ed220
 	k8s.io/api v0.17.2
 	k8s.io/apimachinery v0.17.2
 	k8s.io/client-go v0.17.2

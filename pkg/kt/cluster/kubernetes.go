@@ -16,6 +16,11 @@ import (
 	"k8s.io/client-go/kubernetes"
 )
 
+// GetNamespace get namespace info
+func (k *Kubernetes) GetNamespace(name string) (*v1.Namespace, error) {
+	return k.Clientset.CoreV1().Namespaces().Get(name, metav1.GetOptions{})
+}
+
 // RemoveService remove sevice
 func (k *Kubernetes) RemoveService(name, namespace string) (err error) {
 	client := k.Clientset.CoreV1().Services(namespace)
